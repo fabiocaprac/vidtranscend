@@ -1,1 +1,5 @@
-project_id = "vxcweqarvcphudzaejcc"
+[functions.generate-summary]
+verify_jwt = false
+
+[functions.youtube-transcription]
+verify_jwt = false
