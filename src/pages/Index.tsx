@@ -3,8 +3,30 @@ import { YouTubeInput } from "@/components/YouTubeInput";
 import { MindMap } from "@/components/MindMap";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { toast } from "sonner";
-import { getVideoId, fetchTranscription } from "@/utils/youtube";
-import { summarizeTranscription } from "@/utils/gemini";
+
+// Mock data for demonstration
+const mockMindMapData = {
+  id: "root",
+  text: "Video Title",
+  children: [
+    {
+      id: "1",
+      text: "Main Point 1",
+      children: [
+        { id: "1.1", text: "Sub-point 1.1" },
+        { id: "1.2", text: "Sub-point 1.2" },
+      ],
+    },
+    {
+      id: "2",
+      text: "Main Point 2",
+      children: [
+        { id: "2.1", text: "Sub-point 2.1" },
+        { id: "2.2", text: "Sub-point 2.2" },
+      ],
+    },
+  ],
+};
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,18 +35,13 @@ const Index = () => {
   const handleSubmit = async (url: string) => {
     setIsLoading(true);
     try {
-      const videoId = getVideoId(url);
-      if (!videoId) {
-        throw new Error("Invalid YouTube URL");
-      }
-
-      const transcription = await fetchTranscription(videoId);
-      const summary = await summarizeTranscription(transcription);
-      
-      setMindMapData(summary);
+      // TODO: Implement actual API calls here
+      // For now, we'll use mock data after a delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setMindMapData(mockMindMapData);
       toast.success("Mind map generated successfully!");
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Failed to generate mind map");
+      toast.error("Failed to generate mind map. Please try again.");
       console.error("Error:", error);
     } finally {
       setIsLoading(false);
